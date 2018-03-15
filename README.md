@@ -1,13 +1,19 @@
-# Spring Security 开发安全的REST服务
 
-集成 spring securit, spring security oauth 和 spring social，实现 用户名密码登录，手机验证码登录，社交账号登录，基于jwt的sso，集群session管理等功能。
+*本来是 fork 了 老师的源码的(https://github.com/jojozhai/security)*
+*跟着学了两章后，发现还是少了点感觉，干脆自己重新码一遍吧 😁*
+
+小目标
+
+* IDEA 构建
+* 使用最新的 Spring 版本
+
+# Spring Security 开发安全的REST服务
 
 视频来源： http://coding.imooc.com/class/134.html
 
-视频作者：[JoJO](http://www.imooc.com/t/3554172)
+视频作者：[JoJo](http://www.imooc.com/t/3554172)
 
 ![jojo](./doc/img/jojo.jpg)
-
 
 # 章节目录和总结文档
 
