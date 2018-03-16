@@ -31,7 +31,13 @@ public class UserControllerTest {
     @Test
     public void whenQuerySeccuss() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/user").contentType(MediaType.APPLICATION_JSON_UTF8))
+            mockMvc.perform(MockMvcRequestBuilders.get("/user")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                    .param("username", "user1")
+                    .param("size", "15")
+                    .param("page", "1")
+                    .param("sort", "username,desc")
+                    )
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3))
             ;
