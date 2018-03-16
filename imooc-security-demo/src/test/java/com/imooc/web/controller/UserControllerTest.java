@@ -15,7 +15,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Date;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,6 +71,25 @@ public class UserControllerTest {
 
         mockMvc.perform(request)
                 .andExpect(status().is4xxClientError())
+        ;
+    }
+
+    @Test
+    public void whenCreateSuccess() throws Exception {
+
+        Date date = new Date();
+        String content = "{\"username\":\"user1\",\"password\":\"1\",\"birthday\":" + date.getTime() + "}";
+
+        logger.info("content={}", content);
+
+        MockHttpServletRequestBuilder request = post("/user")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content);
+
+        logger.info(mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andReturn().getResponse().getContentAsString());
         ;
     }
 

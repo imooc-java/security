@@ -19,6 +19,12 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @PostMapping
+    public User create(@RequestBody User user) {
+        logger.info(ReflectionToStringBuilder.toString(user, ToStringStyle.MULTI_LINE_STYLE));
+        return user.setId("1");
+    }
+
     @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> query(User user, @PageableDefault(size = 10, page = 0) Pageable pageable) {
