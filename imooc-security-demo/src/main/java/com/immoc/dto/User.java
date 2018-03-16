@@ -1,6 +1,7 @@
 package com.immoc.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -11,8 +12,10 @@ public class User {
 
     private String id;
 
+    @NotBlank
     private String username;
 
+    @NotBlank
     private String password;
 
     private Date birthday;
