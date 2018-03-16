@@ -25,7 +25,7 @@
 
 * [x] [2-1 开发环境安装](./doc/2-1_开发环境安装.md)
 * [x] [2-2 代码结构介绍](./doc/2-2_代码结构介绍.md)
-* [ ] [2-3 Hello Spring Security](./doc/2-3_Hello_Spring_Security.md)
+* [x] [2-3 Hello Spring Security](./doc/2-3_Hello_Spring_Security.md)
 
 ## 第3章 使用Spring MVC开发RESTful API
 

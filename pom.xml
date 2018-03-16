@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.imooc.security</groupId>
     <artifactId>imooc-security</artifactId>
-    <version>${imooc.security.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>imooc-security-core</module>
         <module>imooc-security-app</module>
