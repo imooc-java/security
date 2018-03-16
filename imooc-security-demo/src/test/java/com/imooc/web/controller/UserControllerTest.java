@@ -15,10 +15,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,7 +50,8 @@ public class UserControllerTest {
         logger.info(mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(3))
-                .andReturn().getResponse().getContentAsString());
+                .andReturn().getResponse().getContentAsString())
+        ;
     }
 
     @Test
@@ -61,7 +62,8 @@ public class UserControllerTest {
         logger.info(mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("user1"))
-                .andReturn().getResponse().getContentAsString());
+                .andReturn().getResponse().getContentAsString())
+        ;
     }
 
     @Test
@@ -89,8 +91,42 @@ public class UserControllerTest {
         logger.info(mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
-                .andReturn().getResponse().getContentAsString());
+                .andReturn().getResponse().getContentAsString())
         ;
+
+    }
+
+
+    @Test
+    public void whenUpdateSuccess() throws Exception {
+
+        Date date = new Date(System.currentTimeMillis() + 100000);
+        String content = "{\"id\":\"1\",\"username\":\"user1\",\"password\":\"1\",\"birthday\":" + date.getTime() + "}";
+
+        logger.info("content={}", content);
+
+        MockHttpServletRequestBuilder request = put("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content);
+
+        logger.info(mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andReturn().getResponse().getContentAsString())
+        ;
+
+    }
+
+    @Test
+    public void whenDeleteSuccess() throws Exception {
+
+        MockHttpServletRequestBuilder request = delete("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+        ;
+
     }
 
 }

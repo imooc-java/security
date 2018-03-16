@@ -32,6 +32,17 @@ public class UserController {
         return user.setId("1");
     }
 
+    @PutMapping("/{id:\\d+}")
+    public User update(@Valid @RequestBody User user, BindingResult errors) {
+        logger.info(ReflectionToStringBuilder.toString(user, ToStringStyle.MULTI_LINE_STYLE));
+
+        if (errors.hasErrors()) {
+            errors.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
+        }
+
+        return user;
+    }
+
     @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> query(User user, @PageableDefault(size = 10, page = 0) Pageable pageable) {
@@ -50,8 +61,13 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
-        logger.info("user_id = {}", id);
+        logger.info("getInfo user_id = {}", id);
         return new User().setUsername("user1").setPassword("1");
+    }
+
+    @DeleteMapping("/{id:\\d+}")
+    public void delete(@PathVariable String id) {
+        logger.info("delete user_id = {}", id);
     }
 
 }
