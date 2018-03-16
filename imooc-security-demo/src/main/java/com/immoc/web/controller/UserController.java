@@ -2,6 +2,7 @@ package com.immoc.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.immoc.dto.User;
+import com.immoc.exception.UserNotExistException;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -22,12 +23,12 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping
-    public User create(@Valid @RequestBody User user, BindingResult errors) {
+    public User create(@Valid @RequestBody User user) {
         logger.info(ReflectionToStringBuilder.toString(user, ToStringStyle.MULTI_LINE_STYLE));
 
-        if (errors.hasErrors()) {
-            errors.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
-        }
+//        if (errors.hasErrors()) {
+//            errors.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
+//        }
 
         return user.setId("1");
     }
@@ -62,7 +63,8 @@ public class UserController {
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
         logger.info("getInfo user_id = {}", id);
-        return new User().setUsername("user1").setPassword("1");
+//        return new User().setUsername("user1").setPassword("1");
+        throw new UserNotExistException(id);
     }
 
     @DeleteMapping("/{id:\\d+}")
