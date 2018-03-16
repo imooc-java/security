@@ -62,9 +62,11 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
+//        throw new UserNotExistException(id);
+
         logger.info("getInfo user_id = {}", id);
-//        return new User().setUsername("user1").setPassword("1");
-        throw new UserNotExistException(id);
+        return new User().setUsername("user1").setPassword("1");
+
     }
 
     @DeleteMapping("/{id:\\d+}")
