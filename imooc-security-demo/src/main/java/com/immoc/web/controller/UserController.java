@@ -14,11 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @GetMapping
     @JsonView(User.UserSimpleView.class)
     public List<User> query(User user, @PageableDefault(size = 10, page = 0) Pageable pageable) {
 
@@ -33,10 +34,10 @@ public class UserController {
         return users;
     }
 
-    @RequestMapping(value = "/user/{id:\\d+}", method = RequestMethod.GET)
+    @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
-        logger.info("user_id={}", id);
+        logger.info("user_id = {}", id);
         return new User().setUsername("user1").setPassword("1");
     }
 
