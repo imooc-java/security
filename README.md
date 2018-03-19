@@ -40,7 +40,7 @@
 * [x] [3-9 使用REST方式处理文件服务](./doc/3-9_使用REST方式处理文件服务.md)
 * [x] [3-10 使用多线程提高REST服务性能](./doc/3-10_使用多线程提高REST服务性能.md)
 * [x] [3-11 使用Swagger自动生成文档](./doc/3-11_使用Swagger自动生成文档.md)
-* [ ] [3-12 使用WireMock伪造REST服务](./doc/3-12_使用WireMock伪造REST服务.md)
+* [x] [3-12 使用WireMock伪造REST服务](./doc/3-12_使用WireMock伪造REST服务.md)
 
 ## 第4章 使用Spring Security开发基于表单的登录
 
