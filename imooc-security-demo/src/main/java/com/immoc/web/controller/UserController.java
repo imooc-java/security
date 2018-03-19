@@ -3,6 +3,8 @@ package com.immoc.web.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.immoc.dto.User;
 import com.immoc.exception.UserNotExistException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -46,6 +48,7 @@ public class UserController {
 
     @GetMapping
     @JsonView(User.UserSimpleView.class)
+    @ApiOperation(value = "用户查询服务")
     public List<User> query(User user, @PageableDefault(size = 10, page = 0) Pageable pageable) {
 
         // 通过反射方法，打印查询参数对象
@@ -61,7 +64,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
-    public User getInfo(@PathVariable String id) {
+    public User getInfo(@ApiParam(value = "用户ID") @PathVariable String id) {
 //        throw new UserNotExistException(id);
 
         logger.info("getInfo user_id = {}", id);
