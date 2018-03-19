@@ -8,13 +8,13 @@
 
 ## 第一印象
 
-| 操作类型 	|           传统请求           	| 请求类型 	|   RESTful请求  	| 请求类型 	|
-|:--------:	|:----------------------------:	|:--------:	|:--------------:	|:--------:	|
-| 查询     	| /user/query?name=tom         	| GET      	| /user?name=tom 	| GET      	|
-| 详情     	| /user/getInfo?id=1           	| GET      	| /user/1        	| GET      	|
-| 创建     	| /user/create?name=tom        	| POST     	| /user          	| POST     	|
-| 修改     	| /user/update?id=1&name=jerry 	| POST     	| /user/1        	| PUT      	|
-| 删除     	| /user/delete?id=1            	| GET      	| /user/1        	| DELETE   	|
+| 操作类型 |           传统请求           | 请求类型 |   RESTful请求  | 请求类型 |
+|:--------:|:----------------------------:|:--------:|:--------------:|:--------:|
+| 查询     | /user/query?name=tom         | GET      | /user?name=tom | GET      |
+| 详情     | /user/getInfo?id=1           | GET      | /user/1        | GET      |
+| 创建     | /user/create?name=tom        | POST     | /user          | POST     |
+| 修改     | /user/update?id=1&name=jerry | POST     | /user/1        | PUT      |
+| 删除     | /user/delete?id=1            | GET      | /user/1        | DELETE   |
 
 1. 用 URL 描述资源
 2. 使用 HTTP 方法描述行为。使用 HTTP 状态码来表示不同的结果
