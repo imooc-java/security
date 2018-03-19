@@ -1,6 +1,6 @@
 package com.imooc.web.controller;
 
-import com.immoc.DemoApplication;
+import com.imooc.DemoApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

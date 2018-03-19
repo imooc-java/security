@@ -45,7 +45,7 @@
 ## 第4章 使用Spring Security开发基于表单的登录
 
 * [x] [4-1 简介](./doc/4-1_简介.md)
-* [ ] [4-2 SpringSecurity基本原理](./doc/4-2_SpringSecurity基本原理.md)
+* [x] [4-2 SpringSecurity基本原理](./doc/4-2_SpringSecurity基本原理.md)
 * [ ] [4-3 自定义用户认证逻辑](./doc/4-3_自定义用户认证逻辑.md)
 * [ ] [4-4 个性化用户认证流程（一）](./doc/4-4_个性化用户认证流程.md)
 * [ ] [4-5 个性化用户认证流程（二）](./doc/4-5_个性化用户认证流程.md)
