@@ -38,9 +38,11 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        urls.addAll(Arrays.asList(StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrl(), ",")));
+        String url = securityProperties.getCode().getImage().getUrl();
+        if (StringUtils.isNotBlank(url)) {
+            urls.addAll(Arrays.asList(StringUtils.splitByWholeSeparatorPreserveAllTokens(url, ",")));
+        }
         urls.add("/authentication/form");
-
     }
 
     @Override
