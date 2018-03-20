@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class ValidateCodeController {
 
-    public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+    public static final String SESSION_KEY_PREFIX = "SESSION_KEY_CODE_";
 
     @Autowired
     private ValidateCodeProcessorHolder validateCodeProcessorHolder;
