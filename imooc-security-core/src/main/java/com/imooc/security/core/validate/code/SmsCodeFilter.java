@@ -64,7 +64,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
     }
 
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        ValidateCode codeInSession = (ValidateCode) sessionStrategy.getAttribute(request, ValidateCodeController.SESSION_KEY_PREFIX + "SMS");
+        ValidateCode codeInSession = (ValidateCode) sessionStrategy.getAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "smsCode");
 
         if (StringUtils.isBlank(codeInRequest)) {
@@ -76,7 +76,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
         }
 
         if (codeInSession.isExpried()) {
-            sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY_PREFIX + "SMS");
+            sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
             throw new ValidateCodeException("验证码已过期");
         }
 
@@ -84,7 +84,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
             throw new ValidateCodeException("验证码不匹配");
         }
 
-        sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY_PREFIX + "SMS");
+        sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS");
     }
 
     public AuthenticationFailureHandler getAuthenticationFailureHandler() {
