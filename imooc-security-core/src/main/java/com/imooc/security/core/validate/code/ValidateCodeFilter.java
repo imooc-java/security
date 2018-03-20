@@ -1,9 +1,9 @@
 package com.imooc.security.core.validate.code;
 
 import com.imooc.security.core.properties.SecurityProperties;
+import com.imooc.security.core.validate.code.image.ImageCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -55,7 +55,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 ) {
             try {
                 validate(new ServletWebRequest(request));
-            } catch (ValidatecodeException e) {
+            } catch (ValidateCodeException e) {
                 authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
             }
@@ -69,20 +69,20 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "imageCode");
 
         if (StringUtils.isBlank(codeInRequest)) {
-            throw new ValidatecodeException("验证码的值不能为空");
+            throw new ValidateCodeException("验证码的值不能为空");
         }
 
         if (codeInSession == null) {
-            throw new ValidatecodeException("验证码不存在");
+            throw new ValidateCodeException("验证码不存在");
         }
 
         if (codeInSession.isExpried()) {
             sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
-            throw new ValidatecodeException("验证码已过期");
+            throw new ValidateCodeException("验证码已过期");
         }
 
         if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
-            throw new ValidatecodeException("验证码不匹配");
+            throw new ValidateCodeException("验证码不匹配");
         }
 
         sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);

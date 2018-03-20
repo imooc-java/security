@@ -2,9 +2,9 @@ package com.imooc.security.core.validate.code;
 
 import org.springframework.security.core.AuthenticationException;
 
-public class ValidatecodeException extends AuthenticationException {
+public class ValidateCodeException extends AuthenticationException {
 
-    public ValidatecodeException(String msg) {
+    public ValidateCodeException(String msg) {
         super(msg);
     }
 
