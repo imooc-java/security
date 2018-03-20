@@ -1,6 +1,5 @@
 package com.imooc.security.browser;
 
-import com.imooc.security.browser.authentication.MyAuthenticationSuccessHandler;
 import com.imooc.security.core.properties.SecurityProperties;
 import com.imooc.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+        validateCodeFilter.setSecurityProperties(securityProperties);
+        validateCodeFilter.afterPropertiesSet();
 
         http
                 .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
