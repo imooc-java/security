@@ -1,9 +1,12 @@
 package com.imooc.security.browser;
 
+import com.imooc.security.core.authentication.AbstractChannelSecurityConfig;
 import com.imooc.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.imooc.security.core.properties.SecurityConstants;
 import com.imooc.security.core.properties.SecurityProperties;
 import com.imooc.security.core.validate.code.SmsCodeFilter;
 import com.imooc.security.core.validate.code.ValidateCodeFilter;
+import com.imooc.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +25,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import javax.sql.DataSource;
 
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -43,6 +46,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -59,39 +65,28 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
+        applyPasswordAuthenticationConfig(http);
 
-        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
-        smsCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        smsCodeFilter.setSecurityProperties(securityProperties);
-        smsCodeFilter.afterPropertiesSet();
-
-        http
-                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                    .loginPage("/authentication/require")
-                    .loginProcessingUrl("/authentication/form")
-                    .successHandler(myAuthenticationSuccessHandler)
-                    .failureHandler(myAuthenticationFailureHandler)
+        http.apply(validateCodeSecurityConfig)
+                .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 .rememberMe()
-                    .tokenRepository(persistentTokenRepository())
-                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                    .userDetailsService(userDetailsService)
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/require",
-                        "/code/*",
-                        securityProperties.getBrowser().getLoginPage()).permitAll()
+                .antMatchers(
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        securityProperties.getBrowser().getLoginPage(),
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf().disable()
-                .apply(smsCodeAuthenticationSecurityConfig)
-        ;
+                .csrf().disable();
+
     }
 }
