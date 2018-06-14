@@ -60,7 +60,7 @@
 
 ## 第5章 使用Spring Social开发第三方登录
 
-* [ ] [5-1 OAuth协议简介](./doc/5-1_OAuth协议简介.md)
+* [x] [5-1 OAuth协议简介](./doc/5-1_OAuth协议简介.md)
 * [ ] [5-2 SpringSocial简介](./doc/5-2_SpringSocial简介.md)
 * [ ] [5-3 开发QQ登录（上）](./doc/5-3_开发QQ登录.md)
 * [ ] [5-4 开发QQ登录（中）](./doc/5-4_开发QQ登录.md)
